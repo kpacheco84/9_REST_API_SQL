@@ -14,13 +14,18 @@
     "nodemon": "^1.18.3"
   },
   "dependencies": {
+    "basic-auth": "^2.0.1",
     "bcryptjs": "^2.4.3",
     "cross-env": "^5.2.0",
     "express": "^4.17.1",
+    "express-validator": "^5.3.1",
     "morgan": "^1.9.0",
+    "mysql": "^2.17.1",
+    "mysql2": "^1.6.5",
     "promise.prototype.finally": "^3.1.0",
     "sequelize": "^5.8.9",
     "sequelize-cli": "^5.5.0",
+    "sqlite": "^3.0.3",
     "sqlite3": "^4.0.8"
   }
 }

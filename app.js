@@ -3,7 +3,11 @@
 // load modules
 const express = require('express');
 const morgan = require('morgan');
+const sequelize = require('./models').sequelize;
 
+// set the port
+
+const port = process.env.PORT || 5000;
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
 
@@ -13,7 +17,19 @@ const app = express();
 // setup morgan which gives us http request logging
 app.use(morgan('dev'));
 
+// TODO setup your routes here
+
+const routes = require('./routes/index');
+
+
+
+const userRoute = require('./routes/users')
+
 // TODO setup your api routes here
+
+app.use('/api', routes);
+
+app.use('/api/users', userRoute);
 
 // setup a friendly greeting for the root route
 app.get('/', (req, res) => {
@@ -45,6 +61,15 @@ app.use((err, req, res, next) => {
 app.set('port', process.env.PORT || 5000);
 
 // start listening on our port
-const server = app.listen(app.get('port'), () => {
-  console.log(`Express server is listening on port ${server.address().port}`);
+//const server = app.listen(app.get('port'), () => {
+  //console.log(`Express server is listening on port ${server.address().port}`);
+//});
+
+// Test connection
+sequelize.authenticate().then(() => {
+	console.log('Connection has been established successfully.')
+}).then(() => {
+	app.listen(port, () => {
+		console.log(`Express server is listening on port ${port}`)
+	});
 });
