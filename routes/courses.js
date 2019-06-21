@@ -146,13 +146,10 @@ router.put('/:id', authenticate, (req, res, next) => {
 //Delete a Course
 router.delete('/:id', authenticate, (req, res, next) => {
 	//Grab info from request
-	const info = req.body;
+	//const info = req.params.id;
 	//Filter for Course by ID
-	Course.findOne({
-		where: {
-			id: info.id
-		}
-	}).then(course => {
+	Course.findByPk(req.params.id)
+	.then(course => {
 		console.log(`userId= ${course.userId} id = ${req.currentUser.id}`);
 		//If user doesn't own course
 		if (course.userId !== req.currentUser.id) {
