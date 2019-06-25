@@ -46,19 +46,21 @@ router.post("/", (req, res, next) => {
 					})
 					//Catch error and check if Sequelize validation  error 
 					.catch(err => {
-						if (err.name === "SequelizeValidationError") {
-							err.message = "All data must be entered";
+						/*if (err.name === "SequelizeValidationError") {
+							err.message = "All data must be entered";*/
 							err.status = 400;
+							
 							next(err);
-						} else {
-							err.status = 400;
-							next(err);
-						}
+						});
+					}
+					})
+					//Catch errors
+					.catch(err => {
+					err.status = 400;
+					next(err);
 					});
-			}
-		});
-	}
-});
+				}
+			});
 
 
 

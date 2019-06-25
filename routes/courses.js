@@ -106,6 +106,19 @@ router.post("/", authenticate, (req, res, next) => {
 router.put('/:id', authenticate, (req, res, next) => {
 	//Grab info from request
 	const info = req.body;
+	if (!info.title && !info.description) {
+		const err = new Error('Please enter a title and a description.');
+		err.status = 400;
+		next(err);
+	} else if (!info.title) {
+		const err = new Error('Please enter a title.');
+		err.status = 400;
+		next(err);
+	} else if (!info.description) {
+		const err = new Error('Please enter a description.');
+		err.status = 400;
+		next(err);
+	} else {//const info = req.body;
 	//Filter for Course by ID
 	Course.findOne({
 		where: {
@@ -142,6 +155,7 @@ router.put('/:id', authenticate, (req, res, next) => {
 			next(err);
 		}
 	})
+}
 });
 //Delete a Course
 router.delete('/:id', authenticate, (req, res, next) => {
